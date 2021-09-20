@@ -1,25 +1,20 @@
-class Caminhao:
+from classes import *
 
-    def __init__(self, placa):
-        self.placa = placa
-        self.conj
+def menu():
+    print("------------------------------------------")
+    print("[1] Inserir ponto de entrega")
+    print("[2] Inserir item de entrega")
+    print("[3] Inserir caminhão")
+    print("[4] Associar item a ponto de entrega")
+    print("[5] Associar ponto de entrega a caminhão")
+    print("[6] Realizar entregas")
+    print("[0] Sair")
+    opcao = input()
+    return opcao
 
-    pass
+opcao = True
 
-
-class Local:
-
-    def __init__(self, idLocal, nomeLocal):
-        self.id = idLocal
-        self.nome = nomeLocal
-
-    pass
-
-
-class ItemEntrega:
-
-    def __init__(self, idItem, nomeItem):
-        self.idItem = idItem
-        self.nome = nomeItem
-
-    pass
+while opcao:
+    opcao = menu()
+    if opcao == "0":
+        opcao = False
