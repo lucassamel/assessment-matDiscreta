@@ -1,5 +1,3 @@
-from time import sleep
-
 from classes import *
 
 
@@ -20,12 +18,11 @@ def main():
     opcao = True
 
     entregas = {"Locais": [],
-                "Itens": [],
                 "Caminhao": []}
 
-    locais = []
-    itens = []
-    caminhoes = []
+    locais = [("001", "niteroi"), ("002", "rio de janeiro")]
+    itens = [("001", "iphone"), ("002", "televisao"), ("003", "sofá")]
+    caminhoes = ["PLACA 001", "PLACA 002"]
 
     while opcao:
         opcao = menu()
@@ -37,28 +34,18 @@ def main():
             idLocal = input("Digite um identificador para o Local: ")
             nomeLocal = input("Digite um nome para o Local: ")
             local = Local(idLocal, nomeLocal, None, None)
-            # entregas["Locais"].append(local.inserirLocal())
             locais.append(local.inserirLocal())
-            print(locais)
-            # print(entregas)
 
         elif opcao == "2":
             idItem = input("Digite um identificador para o Item: ")
             nomeItem = input("Digite um nome para o Item: ")
             item = ItemEntrega(idItem, nomeItem)
-            # entregas["Itens"].append(item.addItem())
             itens.append(item.addItem())
-            # print(entregas)
-            print(itens)
-            # sleep(1)
 
         elif opcao == "3":
             placa = input("Digite a placa do Caminhão: ")
             caminhao = Caminhao(placa, None, None, None, None)
-            # entregas["Caminhao"].append(caminhao.inserirCaminhao())
             caminhoes.append(caminhao.inserirCaminhao())
-            print(caminhoes)
-            # print(entregas)
 
         elif opcao == "4":
             print("------------------------------------------")
@@ -67,8 +54,6 @@ def main():
                 print("[" + str(j) + "]", "Id:" + i[0], "Nome: " + i[1])
                 j += 1
             itemAs = input("Selecione um item para se associado: ")
-            # print(entregas["Itens"].__getitem__(int(itemAs)))
-            print(itens[int(itemAs)])
 
             j = 0
             print("------------------------------------------")
@@ -76,48 +61,61 @@ def main():
                 print("[" + str(j) + "]", "Id:" + i[0], "Nome: " + i[1])
                 j += 1
             localAs = input("Selecione um local para associar o item: ")
-            # entregas["Locais"].__getitem__(int(localAs))
-            print(locais[int(localAs)])
 
-            for i in locais[int(localAs)]:
-                nIdLocal = i[0]
-                nNomeLcal = i[1]
-            for i in itens[int(itemAs)]:
-                nIdItem = i[0]
-                nNomeItem = i[1]
+            iL = locais[int(localAs)]
 
-            novoLocal = Local(nIdLocal,nNomeLcal,nIdItem,nNomeItem)
+            nIdLocal = iL[0]
+            nNomeLocal = iL[1]
+
+            iI = itens[int(itemAs)]
+            nIdItem = iI[0]
+            nNomeItem = iI[1]
+
+            novoLocal = Local(nIdLocal, nNomeLocal, nIdItem, nNomeItem)
             entregas["Locais"].append(novoLocal.inserirLocal())
 
             itens.pop(int(itemAs))
-            print(entregas)
-            print(itens)
 
         elif opcao == "5":
             j = 0
             print("------------------------------------------")
-            for i in locais:
+            for i in entregas["Locais"]:
                 print("[" + str(j) + "]", "Id:" + i[0], "Nome: " + i[1])
                 j += 1
             localAs = input("Selecione um local para associar a um caminhão: ")
 
             j = 0
             for i in caminhoes:
-                print("[" + str(j) + "]", "Placa:" + i[0])
+                print("[" + str(j) + "]", "Placa:" + i)
                 j += 1
             caminhaoAs = input("Selecione o caminhão que será associado: ")
 
-            for i in locais[int(localAs)]:
-                nIdLocal = i[0]
-                nNomeLcal = i[1]
+            iL = entregas["Locais"][int(localAs)]
 
-            novoCaminhao = Caminhao()
+            nIdLocal = iL[0]
+            nNomeLocal = iL[1]
+            nNomeItem = iL[2]
+
+            iC = caminhoes[int(caminhaoAs)]
+            nPlaca = iC
+
+            novoCaminhao = Caminhao(nPlaca, nIdLocal, nNomeLocal, None, nNomeItem)
+
+            entregas["Caminhao"].append(novoCaminhao.inserirCaminhao())
+            # locais.pop(int(localAs))
+            print(entregas)
 
         elif opcao == "6":
 
-            pass
+            for i in entregas["Caminhao"]:
+                print("Percurso do caminhão ", i[0], " Foram entregues os itens:")
+                for j in entregas["Caminhao"]:
+                    if j[0] == i[0]:
+                        print("Item: ", j[2], "Local: ", j[1])
+                print("<---------------------->")
 
-
+            print("Total de pontos de entrega: ", str(len(locais)))
+            print("Total de itens entregues: ", )
 
 if __name__ == '__main__':
     main()

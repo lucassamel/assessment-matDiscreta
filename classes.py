@@ -16,7 +16,7 @@ class Local(ItemEntrega):
         super().__init__(idItem, nomeItem)
 
     def inserirLocal(self):
-        return self.idLocal, self.nomeLocal
+        return self.idLocal, self.nomeLocal, self.nomeItem
 
 
 class Caminhao(Local):
@@ -26,4 +26,4 @@ class Caminhao(Local):
         super().__init__(idLocal, nomeLocal, idItem, nomeItem)
 
     def inserirCaminhao(self):
-        return self.placa
+        return self.placa, self.nomeLocal, self.nomeItem
