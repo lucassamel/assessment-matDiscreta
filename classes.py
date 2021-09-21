@@ -2,32 +2,35 @@ class ItemEntrega:
 
     def __init__(self, idItem, nomeItem):
         self.idItem = idItem
-        self.nome = nomeItem
+        self.nomeItem = nomeItem
+
+    def __int__(self):
+        pass
 
     def addItem(self):
-        pass
+        return self.idItem, self.nomeItem
 
 
 class Local(ItemEntrega):
 
     def __init__(self, idLocal, nomeLocal, idItem, nomeItem):
         self.idLocal = idLocal
-        self.nome = nomeLocal
-        super().__init__(idItem,nomeItem)
-
-
-class Caminhao(Local,ItemEntrega):
-
-    def __init__(self, placa, nomeLocal, idLocal, idItem, nomeItem):
-        self.placa = placa
-        super().__init__(idLocal,nomeLocal)
+        self.nomeLocal = nomeLocal
         super().__init__(idItem, nomeItem)
 
-    def info (self):
-        print(self.placa)
-        print(self.nome)
-        print(self.nomeLocal)
+    def __int__(self):
+        pass
+
+    def inserirLocal(self):
+        return self.idLocal, self.nomeLocal
 
 
+class Caminhao(Local):
+
+    def __init__(self, placa, idLocal, nomeLocal,  idItem, nomeItem):
+        self.placa = placa
+        super().__init__(idLocal, nomeLocal,idItem,nomeItem)
 
 
+    def inserirCaminhao(self):
+        return self.placa
